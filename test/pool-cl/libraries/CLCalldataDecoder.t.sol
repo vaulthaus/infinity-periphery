@@ -166,6 +166,7 @@ contract CLCalldataDecoderTest is Test {
         assertEq(swapParams.zeroForOne, _swapParams.zeroForOne);
         assertEq(swapParams.amountIn, _swapParams.amountIn);
         assertEq(swapParams.amountOutMinimum, _swapParams.amountOutMinimum);
+        assertEq(swapParams.sqrtPriceLimitX96, _swapParams.sqrtPriceLimitX96);
         assertEq(swapParams.hookData, _swapParams.hookData);
         _assertEq(swapParams.poolKey, _swapParams.poolKey);
     }
@@ -176,16 +177,17 @@ contract CLCalldataDecoderTest is Test {
             zeroForOne: true,
             amountIn: 1 ether,
             amountOutMinimum: 1 ether,
+            sqrtPriceLimitX96: 0,
             hookData: ""
         });
 
-        /// @dev params.length is 384 as abi.encode adds 32 bytes for dynamic field. However ether.js doesn't add 32 bytes
+        /// @dev params.length is 416 (0x1a0) as abi.encode adds 32 bytes for dynamic field. However ether.js doesn't add 32 bytes
         /// thus we need to remove 32 bytes from the end of the params
         /// ref: https://ethereum.stackexchange.com/questions/152971/abi-encode-decode-mystery-additional-32-byte-field-uniswap-v2
         bytes memory params = abi.encode(_swapParams);
-        assertEq(params.length, 0x180);
+        assertEq(params.length, 0x1a0);
         bytes memory invalidParam = _removeBytes(params, 32 + 1);
-        assertEq(invalidParam.length, 0x160 - 1);
+        assertEq(invalidParam.length, 0x1a0 - 33);
 
         vm.expectRevert(CalldataDecoder.SliceOutOfBounds.selector);
         decoder.decodeCLSwapExactInSingleParams(invalidParam);

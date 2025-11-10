@@ -900,7 +900,7 @@ contract MixedQuoterTest is
 
         // swap 0.5 ether in cl pool
         ICLRouterBase.CLSwapExactInputSingleParams memory swapParams1 =
-            ICLRouterBase.CLSwapExactInputSingleParams(poolKey, true, 0.5 ether, 0, ZERO_BYTES);
+            ICLRouterBase.CLSwapExactInputSingleParams(poolKey, true, 0.5 ether, 0, 0, ZERO_BYTES);
 
         plan = plan.add(Actions.CL_SWAP_EXACT_IN_SINGLE, abi.encode(swapParams1));
         bytes memory swapData1 = plan.finalizeSwap(poolKey.currency0, poolKey.currency1, ActionConstants.MSG_SENDER);
@@ -913,7 +913,7 @@ contract MixedQuoterTest is
 
         // swap another 0.5 ether in infinity cl pool
         ICLRouterBase.CLSwapExactInputSingleParams memory swapParams2 =
-            ICLRouterBase.CLSwapExactInputSingleParams(poolKey, true, 0.5 ether, 0, ZERO_BYTES);
+            ICLRouterBase.CLSwapExactInputSingleParams(poolKey, true, 0.5 ether, 0, 0, ZERO_BYTES);
         plan = Planner.init();
         plan = plan.add(Actions.CL_SWAP_EXACT_IN_SINGLE, abi.encode(swapParams2));
         bytes memory swapData2 = plan.finalizeSwap(poolKey.currency0, poolKey.currency1, ActionConstants.MSG_SENDER);
@@ -963,7 +963,7 @@ contract MixedQuoterTest is
 
         // first swap in infinity cl pool
         ICLRouterBase.CLSwapExactInputSingleParams memory swapParams1 =
-            ICLRouterBase.CLSwapExactInputSingleParams(poolKey, isZeroForOne, firstSwapAmount, 0, ZERO_BYTES);
+            ICLRouterBase.CLSwapExactInputSingleParams(poolKey, isZeroForOne, firstSwapAmount, 0, 0, ZERO_BYTES);
 
         plan = plan.add(Actions.CL_SWAP_EXACT_IN_SINGLE, abi.encode(swapParams1));
         bytes memory swapData1;
@@ -991,7 +991,7 @@ contract MixedQuoterTest is
 
         // second swap in infinity cl pool
         ICLRouterBase.CLSwapExactInputSingleParams memory swapParams2 =
-            ICLRouterBase.CLSwapExactInputSingleParams(poolKey, isZeroForOne, secondSwapAmount, 0, ZERO_BYTES);
+            ICLRouterBase.CLSwapExactInputSingleParams(poolKey, isZeroForOne, secondSwapAmount, 0, 0, ZERO_BYTES);
         plan = Planner.init();
         plan = plan.add(Actions.CL_SWAP_EXACT_IN_SINGLE, abi.encode(swapParams2));
         bytes memory swapData2;
@@ -1367,7 +1367,7 @@ contract MixedQuoterTest is
         uint256 route1Token1BalanceBefore = token1.balanceOf(address(this));
         // swap 1 ether in infinity cl pool
         ICLRouterBase.CLSwapExactInputSingleParams memory swapParams1 =
-            ICLRouterBase.CLSwapExactInputSingleParams(poolKey, true, 1 ether, 0, ZERO_BYTES);
+            ICLRouterBase.CLSwapExactInputSingleParams(poolKey, true, 1 ether, 0, 0, ZERO_BYTES);
         plan = plan.add(Actions.CL_SWAP_EXACT_IN_SINGLE, abi.encode(swapParams1));
         bytes memory swapData1 = plan.finalizeSwap(poolKey.currency0, poolKey.currency1, ActionConstants.MSG_SENDER);
         infinityRouter.executeActions(swapData1);
@@ -1402,7 +1402,7 @@ contract MixedQuoterTest is
         uint256 route2Token1BalanceBefore = token1.balanceOf(address(this));
         // swap 1 ether in infinity cl pool
         ICLRouterBase.CLSwapExactInputSingleParams memory swapParams3 =
-            ICLRouterBase.CLSwapExactInputSingleParams(poolKey, true, 1 ether, 0, ZERO_BYTES);
+            ICLRouterBase.CLSwapExactInputSingleParams(poolKey, true, 1 ether, 0, 0, ZERO_BYTES);
         plan = Planner.init();
         plan = plan.add(Actions.CL_SWAP_EXACT_IN_SINGLE, abi.encode(swapParams3));
         bytes memory swapData3 = plan.finalizeSwap(poolKey.currency0, poolKey.currency1, ActionConstants.MSG_SENDER);

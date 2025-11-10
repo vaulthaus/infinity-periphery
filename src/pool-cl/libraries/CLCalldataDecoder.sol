@@ -40,8 +40,8 @@ library CLCalldataDecoder {
         // CLExactInputSingleParams is a variable length struct so we just have to look up its location
         assembly ("memory-safe") {
             // only safety checks for the minimum length, where hookData is empty
-            // 0x160 = 11 * 0x20 -> 9 elements, bytes offset, and bytes length 0
-            if lt(params.length, 0x160) {
+            // 0x180 = 12 * 0x20 -> 10 elements, bytes offset, and bytes length 0
+            if lt(params.length, 0x180) {
                 mstore(0, SLICE_ERROR_SELECTOR)
                 revert(0x1c, 4)
             }
