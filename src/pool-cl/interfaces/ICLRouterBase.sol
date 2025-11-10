@@ -13,6 +13,7 @@ interface ICLRouterBase is IImmutableState {
         bool zeroForOne;
         uint128 amountIn;
         uint128 amountOutMinimum;
+        uint160 sqrtPriceLimitX96;
         bytes hookData;
     }
 
